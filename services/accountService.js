@@ -7,9 +7,9 @@ const driverDao = require("../models/driverDao");
 
 const usersignup = async (id, password, name, phonenumber) => {
   validateid(id);
-  validatepw(pw);
+  validatepw(password);
 
-  const user = await userDao.getUserByid(id);
+  const user = await userDao.getUserById(id);
   if (user) {
     throw new Error("DUPLICATED_ID", 400);
   }
