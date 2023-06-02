@@ -10,7 +10,7 @@ const validateid = (id) => {
   }
 };
 
-const validatePw = (password) => {
+const validatepw = (password) => {
   const pwValidation = new RegExp(
     "^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,20})"
   );
@@ -24,7 +24,7 @@ const validatePw = (password) => {
 
 const validatecarnumber = (carnumber) => {
   const carnumberValidation = new RegExp(
-    "^[가-힣]{2} [0-9]{2,4}[가-힣]{1} [0-9]{4}$"
+    "^[가-힣]{2} [0-9]{2}[가-힣]{1} [0-9]{4}$"
   );
 
   if (!carnumberValidation.test(carnumber)) {
@@ -34,4 +34,4 @@ const validatecarnumber = (carnumber) => {
   }
 };
 
-module.exports = { validateid, validatePw, validatecarnumber };
+module.exports = { validateid, validatepw, validatecarnumber };
