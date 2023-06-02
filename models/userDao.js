@@ -43,8 +43,8 @@ const getUserById = async (id) => {
   const result = await database.query(
     `
 		SELECT *
-		FROM users u
-		WHERE u.user_id=?`,
+		FROM users 
+		WHERE user_id=?`,
     [id]
   );
 

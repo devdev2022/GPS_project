@@ -1,14 +1,15 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-const { validateid, validatePw, validatecarnumber } = require("../utils/validation");
+const { validateid, validatepw, validatecarnumber } = require("../utils/validation");
 const userDao = require("../models/userDao");
 const driverDao = require("../models/driverDao");
 
 const usersignup = async (id, password, name, phonenumber) => {
   validateid(id);
-  
-  const user = await userDao.getUserByid(id);
+  validatepw(password);
+
+  const user = await userDao.getUserById(id);
   if (user) {
     throw new Error("DUPLICATED_ID", 400);
   }
@@ -39,8 +40,9 @@ const getUserById = async (id) => {
 
 const driversignup = async (id, password, name, phonenumber, carnumber) => {
     validateid(id);
+    validatepw(password);
     validatecarnumber(carnumber);
-    validatePw(password);
+    
   
     const driver = await driverDao.getDriverById(id);
     if (driver) {
