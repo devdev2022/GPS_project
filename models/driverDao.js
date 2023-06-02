@@ -1,6 +1,6 @@
 const { database } = require("./dataSource");
 
-const createDriver = async (id, hashedPassword, name, phonenumber, carnumber) => {
+const createDriver = async (name, id, hashedPassword, phonenumber, carnumber) => {
   try {
     return await database.query(
       `INSERT INTO driver(
@@ -12,7 +12,7 @@ const createDriver = async (id, hashedPassword, name, phonenumber, carnumber) =>
                 ) 
             VALUES (?, ?, ?, ?, ?);
             `,
-      [id, hashedPassword, name, phonenumber, carnumber]
+      [name, id, hashedPassword, phonenumber, carnumber]
     );
   } catch (err) {
     const error = new Error("INVALID_DATA_INPUT");
@@ -30,7 +30,7 @@ const driversignIn = async (id) => {
       FROM
         driver
       WHERE
-        id = ?`,
+        user_id = ?`,
       [id]
     );
   } catch (err) {
@@ -45,7 +45,7 @@ const getDriverById = async (id) => {
     `
 		SELECT *		
 		FROM driver 
-		WHERE CAR_NUMBER=?`,
+		WHERE user_id=?`,
     [id]
   );
 

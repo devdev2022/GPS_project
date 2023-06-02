@@ -20,7 +20,7 @@ CREATE TABLE `driver` (
   `NAME` varchar(100) NOT NULL,
   `USER_ID` varchar(100) NOT NULL,
   `USER_PW` varchar(100) NOT NULL,
-  `PHONE_NUMBER` int NOT NULL,
+  `PHONE_NUMBER` varchar(100) NOT NULL,
   `CAR_NUMBER` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -91,7 +91,7 @@ CREATE TABLE `users` (
   `NAME` varchar(100) NOT NULL,
   `USER_ID` varchar(100) NOT NULL,
   `USER_PW` varchar(100) NOT NULL,
-  `PHONE_NUMBER` int NOT NULL,
+  `PHONE_NUMBER` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;

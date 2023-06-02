@@ -2,8 +2,8 @@ const accountService = require('../services/accountService');
 
 const userSignUp = async (req, res) => {
     try {
-        const { id, password, name, phonenumber } = req.body;
-        const newUser = await accountService.usersignup(id, password, name, phonenumber);
+        const { name, id, password, phonenumber } = req.body;
+        const newUser = await accountService.usersignup(name, id, password, phonenumber);
         res.status(201).json(newUser);
     } catch (error) {
         res.status(500).json({ message: 'An error occurred.' });
@@ -22,8 +22,8 @@ const userSignIn = async (req, res) => {
 
 const driverSignUp = async (req, res) => {
     try {
-        const { id, password, name, phonenumber, carnumber } = req.body;
-        const newDriver = await accountService.driversignup(id, password, name, phonenumber, carnumber);
+        const { name, id, password, phonenumber, carnumber } = req.body;
+        const newDriver = await accountService.driversignup(name, id, password, phonenumber, carnumber);
         res.status(201).json(newDriver);
     } catch (error) {
         res.status(500).json({ message: 'An error occurred.' });
