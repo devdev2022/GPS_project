@@ -9,7 +9,7 @@ const acceptReservation = async (reservation_id, driver_id) => {
         await reservationDao.updateStatus('예약 완료', reservation_id);
         
         // Create a new record in reservation_driver table
-        await reservationDriverDao.createReservationDriver(reservation_id, driver_id);
+        await createReservationDriver(reservation_id, driver_id);
     } catch (error) {
         throw error;
     }
