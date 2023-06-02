@@ -5,7 +5,7 @@ const { validateid, validatepw, validatecarnumber } = require("../utils/validati
 const userDao = require("../models/userDao");
 const driverDao = require("../models/driverDao");
 
-const usersignup = async (id, password, name, phonenumber) => {
+const usersignup = async (name, id, password, phonenumber) => {
   validateid(id);
   validatepw(password);
 
@@ -14,7 +14,7 @@ const usersignup = async (id, password, name, phonenumber) => {
     throw new Error("DUPLICATED_ID", 400);
   }
   const hashedPassword = await bcrypt.hash(password, 10);
-  return await userDao.createUser(id, hashedPassword, name, phonenumber);
+  return await userDao.createUser(name, id, hashedPassword, phonenumber);
 };
 
 const usersignIn = async (id, password) => {
@@ -38,11 +38,11 @@ const getUserById = async (id) => {
 }
 
 
-const driversignup = async (id, password, name, phonenumber, carnumber) => {
+const driversignup = async (name, id, password, phonenumber, carnumber) => {
+
     validateid(id);
     validatepw(password);
     validatecarnumber(carnumber);
-    
   
     const driver = await driverDao.getDriverById(id);
     if (driver) {
@@ -55,18 +55,18 @@ const driversignup = async (id, password, name, phonenumber, carnumber) => {
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
-    return await driverDao.createDriver(id, hashedPassword, name, phonenumber, carnumber);
+    return await driverDao.createDriver(name, id, hashedPassword, phonenumber, carnumber);
   };
   
   const driversignin = async (id, password) => {
-    validateid(id);
-    const driver = await driverDao.getDriverById(id);
+    const driver = await driverDao.driversignIn(id);
+
     const is_match = await bcrypt.compare(password, driver.password);
     if (!is_match) {
       throw new Error("INVALID_DRIVER", 401);
     }
     
-    const driverjwtToken = jwt.sign({ id: driver.id }, process.env.JWT_SECRET_KEY, {
+    const driverjwtToken = jwt.sign({ id: driver.user_id }, process.env.JWT_SECRET_KEY, {
         expiresIn: "1d",
       });
 
