@@ -20,7 +20,7 @@ const usersignup = async (name, id, password, phonenumber) => {
 const usersignIn = async (id, password) => {
   
   const user = await userDao.usersignIn(id);
-  const is_match = await bcrypt.compare(password, user.password);
+  const is_match = await bcrypt.compare(password, user[0].user_pw);
   if (!is_match) {
     throw new Error("INVALID_USER", 401);
   }
@@ -60,7 +60,7 @@ const driversignup = async (name, id, password, phonenumber, carnumber) => {
   const driversignin = async (id, password) => {
 
     const driver = await driverDao.driversignIn(id);
-    const is_match = await bcrypt.compare(password, driver.password);
+    const is_match = await bcrypt.compare(password, driver[0].user_pw);
     if (!is_match) {
       throw new Error("INVALID_DRIVER", 401);
     }
