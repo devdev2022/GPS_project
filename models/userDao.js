@@ -29,7 +29,7 @@ const usersignIn = async (id) => {
       FROM
         users
       WHERE
-        id = ?`,
+        user_id = ?`,
       [id]
     );
   } catch (err) {
