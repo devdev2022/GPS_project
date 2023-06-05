@@ -1,4 +1,3 @@
-//routes/reservationRoutes.js
 const express = require('express');
 const router = express.Router();
 const { userLoginRequired, driverLoginRequired } = require('../utils/checkUser');
@@ -6,12 +5,12 @@ const { requestReservation, getReservations } = require('../controllers/userCont
 const { acceptReservation } = require('../controllers/driverController');
 
 // 유저 예약 요청
-router.post('/reservations/:user_id', userLoginRequired, requestReservation);
+router.post('/:user_id', userLoginRequired, requestReservation);
 
 // 예약 목록 요청
-router.get('/reservations/:user_id', getReservations);
+router.get('/:user_id', getReservations);
 
 // 예약 수락 요청
-router.post('/reservations/:reservation_id/:driver_id', driverLoginRequired, acceptReservation);
+router.post('/:reservation_id/:driver_id', driverLoginRequired, acceptReservation);
 
 module.exports = router;

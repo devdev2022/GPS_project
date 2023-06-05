@@ -4,7 +4,7 @@ const { getUserById } = require("../services/userService");
 const { getDriverById } = require("../services/driverService");
 
 const userLoginRequired = async (req, res, next) => {
-  const accessToken = req.headers.authorization;
+  const accessToken = req.headers.authorization.split(' ')[1];
 
   if (!accessToken) {
     const error = new Error("NEED_ACCESS_TOKEN");
@@ -14,7 +14,7 @@ const userLoginRequired = async (req, res, next) => {
 
   const decoded = await promisify(jwt.verify)(
     accessToken,
-    process.env.secretKey
+    process.env.JWT_SECRET_KEY
   );
 
   const user = await getUserById(decoded.id);
@@ -41,7 +41,7 @@ const driverLoginRequired = async (req, res, next) => {
   
     const decoded = await promisify(jwt.verify)(
       accessToken,
-      process.env.secretKey
+      process.env.JWT_SECRET_KEY
     );
   
     const driver = await getDriverById(decoded.id);

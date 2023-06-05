@@ -1,9 +1,6 @@
-const { getDistance } = require('../services/kakaoService');
-
 const pricePerKm = 1600;
 
-const calculatePrice = async (startLocation, endLocation) => {
-  const distance = await getDistance(startLocation, endLocation);
+const calculatePrice = async (distance) => {
   return Math.floor(distance * pricePerKm);
 };
 

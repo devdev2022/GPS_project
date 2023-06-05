@@ -25,9 +25,10 @@ const usersignIn = async (id, password) => {
     throw new Error("INVALID_USER", 401);
   }
 
-  const userjwtToken = jwt.sign({ id: user.id }, process.env.JWT_SECRET_KEY, {
+  const userjwtToken = jwt.sign({ id: user[0].user_id }, process.env.JWT_SECRET_KEY, {
     expiresIn: "1d",
-  });
+});
+
 
   return userjwtToken;
 };

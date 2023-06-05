@@ -2,9 +2,12 @@ const reservationDao = require('../models/reservationDao');
 const userDao = require("../models/userDao");
 const { raiseCustomError } = require('../utils/error'); 
 
-const createReservationService = async (departureAddress, departureLat, departureLon, destinationAddress, destinationLat, destinationLon, userId, payment) => {
+const createReservationService = async (startAddress, startlat, startlng, endAddress, endlat, endlng, userId, payment) => {
     try {
-        await reservationDao.createReservation(departureAddress, departureLat, departureLon, destinationAddress, destinationLat, destinationLon, userId, payment);
+        const { address_name: departureAddress } = startAddress;
+        const { address_name: destinationAddress } = endAddress;
+
+        await reservationDao.createReservation(departureAddress, startlat, startlng, destinationAddress, endlat, endlng, userId, payment);
     } catch (error) {
         raiseCustomError(error.message, error.statusCode);
     }

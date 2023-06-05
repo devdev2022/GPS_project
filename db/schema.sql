@@ -35,18 +35,16 @@ CREATE TABLE `driver` (
 CREATE TABLE `reservation` (
   `ID` int NOT NULL AUTO_INCREMENT,
   `DATE` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `DEPARTURE_ADDRESS` varchar(200) DEFAULT NULL,
+  `DEPARTURE_ADDRESS` varchar(200) NOT NULL,
   `DEPARTURE_LAT` decimal(9,6) NOT NULL,
   `DEPARTURE_LON` decimal(9,6) NOT NULL,
   `DESTINATION_ADDRESS` varchar(200) NOT NULL,
   `DESTINATION_LAT` decimal(9,6) NOT NULL,
   `DESTINATION_LON` decimal(9,6) NOT NULL,
-  `USER_ID` int NOT NULL,
+  `USER_ID` varchar(100) NOT NULL,
   `PAYMENT` int NOT NULL,
   `RESERVATION_STATUS` enum('예약 완료','미완료') DEFAULT '미완료',
-  PRIMARY KEY (`ID`),
-  KEY `USER_ID` (`USER_ID`),
-  CONSTRAINT `reservation_ibfk_1` FOREIGN KEY (`USER_ID`) REFERENCES `users` (`ID`)
+  PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

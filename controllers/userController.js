@@ -1,44 +1,41 @@
-const KakaoService = require('../services/kakaoService');
+const kakaoService = require('../services/kakaoService');
 const userService = require('../services/userService');
 const { catchAsync, raiseCustomError } = require('../utils/error');
 
-const requestReservation = catchAsync(async (req, res) => {
-    const { userId, payment, departureAddress, start, destinationAddress, end } = req.body;
-    
-    if (!userId || !payment || !departureAddress || !start || !start.lat || !start.lng || !destinationAddress || !end || !end.lat || !end.lng) {
-        raiseCustomError("KEY_ERROR", 400);
-    }
+const requestReservation = async (req, res) => {
+    try {
+        const userId = req.params.user_id;
 
-    const kakaoService = new KakaoService();
-    const departureAddressResult = await kakaoService.fetchAddress(departureAddress);
-    const destinationAddressResult = await kakaoService.fetchAddress(destinationAddress);
+        const { start, end } = req.body;
 
-    if (!departureAddressResult || !destinationAddressResult) {
-        raiseCustomError("Invalid address", 400);
-    }
+        const startlat = start.lat;
+        const startlng = start.lng;
+        const endlat = end.lat;
+        const endlng = end.lng;
 
-    // Get distance and price
-    const tripInfo = await kakaoService.calculateTrip(departureAddress, destinationAddress);
+        const { startAddress, endAddress } = await kakaoService.fetchAddress({ start, end });
+        
+        const payment = await kakaoService.calculatePrice({ start, end });
 
-    // Check if the price is the same as the user's payment
-    if (tripInfo.price !== payment) {
-        raiseCustomError("Payment amount does not match the calculated price", 400);
-    }
+        await userService.createReservationService(
+            startAddress,
+            startlat, 
+            startlng,
+            endAddress,
+            endlat,
+            endlng,
+            userId,
+            payment
+          );
 
-    // Use reservation service to insert the data to the database
-    await userService.createReservation(
-      departureAddress, 
-      start.lat, 
-      start.lng, 
-      destinationAddress, 
-      end.lat, 
-      end.lng, 
-      userId, 
-      payment
-    );
+        res.status(200).json({ message: 'Reservation created successfully' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'An error occurred while processing the reservation' });
+  }
+};
 
-    res.status(201).json({ message: "SUCCESS", tripInfo });
-});
+
 
 const getReservations = catchAsync(async (req, res) => {
     const { userId } = req.query;

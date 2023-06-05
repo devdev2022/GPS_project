@@ -2,11 +2,11 @@ const { database } = require("./dataSource");
 
 const createReservation = async (
     departureAddress, 
-    departureLat, 
-    departureLon, 
+    startlat, 
+    startlng, 
     destinationAddress, 
-    destinationLat, 
-    destinationLon, 
+    endlat, 
+    endlng, 
     userId, 
     payment
   ) => {
@@ -25,16 +25,17 @@ const createReservation = async (
         VALUES (?, ?, ?, ?, ?, ?, ?, ?);`,
         [
           departureAddress, 
-          departureLat, 
-          departureLon, 
+          startlat, 
+          startlng, 
           destinationAddress, 
-          destinationLat, 
-          destinationLon, 
+          endlat, 
+          endlng, 
           userId, 
           payment
         ]
       );
     } catch (err) {
+      console.log(err)
       const error = new Error("INVALID_DATA_INPUT");
       error.statusCode = 500;
       throw error;
