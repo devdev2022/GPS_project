@@ -8,7 +8,6 @@ const fetchAddress = async ({ start, end }) => {
         'Authorization': `KakaoAK ${process.env.KAKAO_API_KEY}`
       }
     });
-    console.log(response)
 
     if (!response.ok) {
       console.error("Geocoder request failed with status", response.status);
@@ -28,7 +27,7 @@ const fetchAddress = async ({ start, end }) => {
     }
     
     if (!foundAddress) {
-      throw new Error(`No data found for location: ${JSON.stringify(location)}`);
+      throw new Error(`No data found for location: ${(location)}`);
     }
 
     return foundAddress;
@@ -36,8 +35,6 @@ const fetchAddress = async ({ start, end }) => {
 
   const startAddress = await fetchLocation(start);
   const endAddress = await fetchLocation(end);
-  console.log(startAddress)
-  console.log(endAddress)
 
   return { startAddress, endAddress };
 };
