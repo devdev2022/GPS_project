@@ -66,7 +66,7 @@ const driversignup = async (name, id, password, phonenumber, carnumber) => {
       throw new Error("INVALID_DRIVER", 401);
     }
     
-    const driverjwtToken = jwt.sign({ id: driver.user_id }, process.env.JWT_SECRET_KEY, {
+    const driverjwtToken = jwt.sign({ id: driver[0].user_id }, process.env.JWT_SECRET_KEY, {
         expiresIn: "1d",
       });
 

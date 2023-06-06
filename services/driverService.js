@@ -6,7 +6,7 @@ const driverDao = require("../models/driverDao")
 const acceptReservation = async (reservation_id, driver_id) => {
     try {
         // Update the reservation status to '예약 완료'
-        await reservationDao.updateStatus('예약 완료', reservation_id);
+        await updateStatus('예약 완료', reservation_id);
         
         // Create a new record in reservation_driver table
         await createReservationDriver(reservation_id, driver_id);
