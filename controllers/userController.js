@@ -38,11 +38,7 @@ const requestReservation = async (req, res) => {
 
 
 const getReservations = catchAsync(async (req, res) => {
-    const { userId } = req.query;
-    
-    if (!userId) {
-        raiseCustomError("KEY_ERROR", 400);
-    }
+    const userId = req.params.user_id;
 
     const user = await userService.getUserById(userId);
     if (!user) {

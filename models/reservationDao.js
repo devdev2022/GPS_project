@@ -56,7 +56,7 @@ const getReservationByuserId = async (userId) => {
               destination_lat,
               destination_lon, 
               payment,
-              status
+              reservation_status
           FROM reservation
           WHERE user_id=?`,
       [userId]
