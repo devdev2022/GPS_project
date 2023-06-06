@@ -12,18 +12,18 @@ const acceptReservation = async (req, res) => {
     }
 };
 
-const getReservations = async (req, res) => {
+const getclosereservations = async (req, res) => {
     const driverLocation = {
         latitude: req.query.latitude,
         longitude: req.query.longitude
     };
 
     try {
-        const reservations = await driverService.getReservations(driverLocation);
+        const reservations = await driverService.getclosereservations(driverLocation);
         res.status(200).json(reservations);
     } catch (error) {
         res.status(500).json({ message: 'An error occurred.' });
     }
 };
 
-module.exports = { acceptReservation, getReservations };
+module.exports = { acceptReservation, getclosereservations };

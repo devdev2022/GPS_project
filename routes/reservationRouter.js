@@ -13,4 +13,7 @@ router.get('/:user_id', userLoginRequired, getReservations);
 // 예약 수락 요청
 router.post('/:reservation_id/:driver_id', driverLoginRequired, acceptReservation);
 
+// 드라이버 예약 목록 요청 
+router.get('/reservations', getReservations);
+
 module.exports = router;

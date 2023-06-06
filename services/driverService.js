@@ -15,7 +15,7 @@ const acceptReservation = async (reservation_id, driver_id) => {
     }
 };
 
-const getReservations = async (driverLocation) => {
+const getclosereservations = async (driverLocation) => {
     const reservations = await updateStatus.findAll();
 
     // Calculate the distance between driver and departure location, and add it to the reservation object
@@ -34,4 +34,4 @@ const getDriverById = async (id) => {
     return driver
   }
 
-module.exports = { acceptReservation, getReservations, getDriverById };
+module.exports = { acceptReservation, getclosereservations, getDriverById };

@@ -62,7 +62,7 @@ const getReservationByuserId = async (userId) => {
       [userId]
     );
   
-    return result[0];
+    return result;
   };
 
   const updateStatus = async (status, ReservationId) => {
