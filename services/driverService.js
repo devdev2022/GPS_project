@@ -1,20 +1,18 @@
 const { updateStatus } = require('../models/reservationDao');
-const { createReservationDriver } = require('../models/reservationdriverDao')
+const { createReservationDriver, getfindreservations } = require('../models/reservationdriverDao')
 const { getDistance } = require('../services/kakaoService');
 const driverDao = require("../models/driverDao")
 
 const acceptReservation = async (reservation_id, driver_id) => {
     try {
-        // Update the reservation status to '예약 완료'
         await updateStatus('예약 완료', reservation_id);
-        
-        // Create a new record in reservation_driver table
         await createReservationDriver(reservation_id, driver_id);
     } catch (error) {
         throw error;
     }
 };
 
+/* 잠시 보류 
 const getclosereservations = async (driverLocation) => {
     const reservations = await updateStatus.findAll();
 
@@ -28,10 +26,20 @@ const getclosereservations = async (driverLocation) => {
 
     return reservations;
 };
+*/
+
+const getsearchreservations = async (req, res) => {
+    try {
+      const reservations = await getfindreservations(req, res);
+      return reservations;
+    } catch (error) {      
+      throw error;
+    }
+};
 
 const getDriverById = async (id) => {
     const driver = await driverDao.getDriverById(id)
     return driver
   }
 
-module.exports = { acceptReservation, getclosereservations, getDriverById };
+module.exports = { acceptReservation, getsearchreservations, getDriverById };

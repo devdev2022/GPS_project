@@ -11,6 +11,7 @@ const acceptReservation = async (req, res) => {
     }
 };
 
+/*
 const getclosereservations = async (req, res) => {
     const driverId = req.params.driver_id;
     const driverLocation = {
@@ -30,5 +31,15 @@ const getclosereservations = async (req, res) => {
         res.status(500).json({ message: 'An error occurred.' });
     }
 };
+*/
 
-module.exports = { acceptReservation, getclosereservations };
+const getsearchreservations = async (req, res) => {
+    try {
+      const reservations = await driverService.getsearchreservations(req, res);
+      res.status(200).json(reservations);
+    } catch (error) {
+      res.status(500).json({ message: 'An error occurred.' });
+    }
+};
+
+module.exports = { acceptReservation, getsearchreservations };
