@@ -128,25 +128,36 @@ const getfindreservations = async (req, res) => {
     try {
       let date = req.query.date;
       let location = req.query.location;
+      let driverId = req.query.driverId;
   
-      let query = 'SELECT * FROM reservation WHERE';
+      let query = `SELECT r.* FROM reservation r 
+                   LEFT JOIN reservation_driver rd 
+                   ON r.ID = rd.RESERVATION_ID`;
       let params = [];
+      let hasCondition = false;
   
       if (date) {
         if (date.length > 10) {
-            query += ' DATE = ?';
+            query += (hasCondition ? ' AND' : ' WHERE') + ' r.DATE = ?';
         } else {
-            query += ' DATE(DATE) = ?';
+            query += (hasCondition ? ' AND' : ' WHERE') + ' DATE(r.DATE) = ?';
         }
         params.push(date);
+        hasCondition = true;
       }
   
       if (location) {
-        if (params.length > 0) {
-          query += ' AND';
-        }
-        query += ' (DEPARTURE_ADDRESS LIKE ?)';
+        query += (hasCondition ? ' AND' : ' WHERE') + 
+                 ' (r.DEPARTURE_ADDRESS LIKE ? OR r.DESTINATION_ADDRESS LIKE ?)';
         params.push(`%${location}%`, `%${location}%`);
+        hasCondition = true;
+      }
+  
+      if (driverId) {
+        query += (hasCondition ? ' AND' : ' WHERE') + 
+                 ' (rd.DRIVER_ID = ? OR rd.DRIVER_ID IS NULL)';
+        params.push(driverId);
+        hasCondition = true;
       }
   
       const reservations = await database.query(query, params);
