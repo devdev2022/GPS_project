@@ -3,14 +3,15 @@ const { promisify } = require("util");
 const { getUserById } = require("../services/userService");
 const { getDriverById } = require("../services/driverService");
 
-const userLoginRequired = async (req, res, next) => {
-  const accessToken = req.headers.authorization.split(' ')[1];
+const userLoginRequired = async (req, res, next) => {  
 
-  if (!accessToken) {
+  if (!req.headers.authorization) {
     const error = new Error("NEED_ACCESS_TOKEN");
     error.statusCode = 401;
     return res.status(error.statusCode).json({ message: error.message });
   }
+
+  const accessToken = req.headers.authorization.split(' ')[1];
 
   const decoded = await promisify(jwt.verify)(
     accessToken,
@@ -30,14 +31,15 @@ const userLoginRequired = async (req, res, next) => {
   next();
 };
 
-const driverLoginRequired = async (req, res, next) => {
-    const accessToken = req.headers.authorization.split(' ')[1];
+const driverLoginRequired = async (req, res, next) => {    
   
-    if (!accessToken) {
-      const error = new Error("NEED_ACCESS_TOKEN");
+    if (!req.headers.authorization) {
+      const error = new Error("AUTHORIZATION_REQUIRED");
       error.statusCode = 401;
       return res.status(error.statusCode).json({ message: error.message });
     }
+
+    const accessToken = req.headers.authorization.split(' ')[1];
   
     const decoded = await promisify(jwt.verify)(
       accessToken,
