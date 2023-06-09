@@ -10,3 +10,7 @@
 ## ERD
 
 <img width="944" alt="스크린샷 2023-06-09 오후 5 46 27" src="https://github.com/devdev2022/GPS_project/assets/100466989/3ddb65ce-2b9b-46b9-b44f-b0fa7b20dfdd">
+
+## API DOCUMENTATION
+
+https://documenter.getpostman.com/view/24104497/2s93saatPR
