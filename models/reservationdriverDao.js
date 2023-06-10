@@ -128,7 +128,7 @@ const getFindReservations = async (req, res) => {
     try {
       let date = req.query.date;
       let location = req.query.location;
-      let driverId = req.query.driverId;
+      let driverId = req.driver.USER_ID;
   
       let query = `SELECT r.* FROM reservation r 
                    LEFT JOIN reservation_driver rd 

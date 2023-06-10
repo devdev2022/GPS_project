@@ -5,18 +5,18 @@ const { requestReservation, getReservations } = require('../controllers/userCont
 const { acceptReservation, getSearchReservations } = require('../controllers/driverController');
 
 // 유저 예약 요청
-router.post('/:user_id', userLoginRequired, requestReservation);
+router.post('/', userLoginRequired, requestReservation);
 
 // 유저 예약 목록 요청
-router.get('/:user_id', userLoginRequired, getReservations);
+router.get('/', userLoginRequired, getReservations);
 
 // 예약 수락 요청
-router.post('/:reservation_id/:driver_id', driverLoginRequired, acceptReservation);
+router.post('/:reservation_id', driverLoginRequired, acceptReservation);
 
 // 드라이버 예약 목록 요청 
-//router.get('/:driver_id', driverLoginRequired, getclosereservations);
+//router.get('/', driverLoginRequired, getclosereservations);
 
 // 드라이버 예약 검색 요청 
-router.get('/search/:driver_id', driverLoginRequired, getSearchReservations);
+router.get('/search', driverLoginRequired, getSearchReservations);
 
 module.exports = router;

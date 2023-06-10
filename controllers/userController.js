@@ -4,7 +4,7 @@ const { catchAsync, raiseCustomError } = require('../utils/error');
 
 const requestReservation = async (req, res) => {
     try {
-        const userId = req.params.user_id;
+        const userId = req.user.USER_ID;
 
         const { start, end } = req.body;
 
@@ -38,7 +38,8 @@ const requestReservation = async (req, res) => {
 
 
 const getReservations = catchAsync(async (req, res) => {
-    const userId = req.params.user_id;
+    console.log(req)
+    const userId = req.user.USER_ID;
 
     const user = await userService.getUserById(userId);
     if (!user) {

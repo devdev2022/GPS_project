@@ -1,7 +1,8 @@
 const driverService = require('../services/driverService');
 
 const acceptReservation = async (req, res) => {
-    const { reservation_id, driver_id } = req.params;
+    const reservation_id = req.params.reservation_id;
+    const driver_id = req.driver.USER_ID
     
     try {
         await driverService.acceptReservation(reservation_id, driver_id);
