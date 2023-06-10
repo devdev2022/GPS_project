@@ -33,13 +33,13 @@ const getclosereservations = async (req, res) => {
 };
 */
 
-const getsearchreservations = async (req, res) => {
+const getSearchReservations = async (req, res) => {
     try {
-      const reservations = await driverService.getsearchreservations(req, res);
+      const reservations = await driverService.getSearchReservations(req, res);
       res.status(200).json(reservations);
     } catch (error) {
       res.status(500).json({ message: 'An error occurred.' });
     }
 };
 
-module.exports = { acceptReservation, getsearchreservations };
+module.exports = { acceptReservation, getSearchReservations };

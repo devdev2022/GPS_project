@@ -5,7 +5,7 @@ const { validateid, validatepw, validatecarnumber } = require("../utils/validati
 const userDao = require("../models/userDao");
 const driverDao = require("../models/driverDao");
 
-const usersignup = async (name, id, password, phonenumber) => {
+const userSignUp = async (name, id, password, phonenumber) => {
   validateid(id);
   validatepw(password);
 
@@ -17,9 +17,9 @@ const usersignup = async (name, id, password, phonenumber) => {
   return await userDao.createUser(name, id, hashedPassword, phonenumber);
 };
 
-const usersignIn = async (id, password) => {
+const userSignIn = async (id, password) => {
   
-  const user = await userDao.usersignIn(id);
+  const user = await userDao.userLogin(id);
   const is_match = await bcrypt.compare(password, user[0].user_pw);
   if (!is_match) {
     throw new Error("INVALID_USER", 401);
@@ -39,7 +39,7 @@ const getUserById = async (id) => {
 }
 
 
-const driversignup = async (name, id, password, phonenumber, carnumber) => {
+const driverSignUp = async (name, id, password, phonenumber, carnumber) => {
     validateid(id);
     validatepw(password);
     validatecarnumber(carnumber);
@@ -49,7 +49,7 @@ const driversignup = async (name, id, password, phonenumber, carnumber) => {
       throw new Error("DUPLICATED_ID", 400);
     }
 
-    const carnum = await driverDao.getDriverBycarnumber(carnumber);
+    const carnum = await driverDao.getDriverByCarNumber(carnumber);
     if (carnum) {
       throw new Error("DUPLICATED_CARNUMBER", 400);
     }
@@ -58,9 +58,9 @@ const driversignup = async (name, id, password, phonenumber, carnumber) => {
     return await driverDao.createDriver(name, id, hashedPassword, phonenumber, carnumber);
   };
   
-  const driversignin = async (id, password) => {
+  const driverSignIn = async (id, password) => {
 
-    const driver = await driverDao.driversignIn(id);
+    const driver = await driverDao.driverLogin(id);
     const is_match = await bcrypt.compare(password, driver[0].user_pw);
     if (!is_match) {
       throw new Error("INVALID_PASSWORD", 401);
@@ -78,5 +78,5 @@ const driversignup = async (name, id, password, phonenumber, carnumber) => {
     return driver
   }
 
-module.exports = { usersignup, usersignIn, getUserById, 
-                 driversignup, driversignin, getDriverById };
+module.exports = { userSignUp, userSignIn, getUserById, 
+                 driverSignUp, driverSignIn, getDriverById };

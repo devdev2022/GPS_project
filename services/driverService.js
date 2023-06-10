@@ -1,5 +1,5 @@
 const { updateStatus } = require('../models/reservationDao');
-const { createReservationDriver, getfindreservations } = require('../models/reservationdriverDao')
+const { createReservationDriver, getFindReservations } = require('../models/reservationdriverDao')
 const { getDistance } = require('../services/kakaoService');
 const driverDao = require("../models/driverDao")
 
@@ -28,9 +28,9 @@ const getclosereservations = async (driverLocation) => {
 };
 */
 
-const getsearchreservations = async (req, res) => {
+const getSearchReservations = async (req, res) => {
     try {
-      const reservations = await getfindreservations(req, res);
+      const reservations = await getFindReservations(req, res);
       return reservations;
     } catch (error) {      
       throw error;
@@ -42,4 +42,4 @@ const getDriverById = async (id) => {
     return driver
   }
 
-module.exports = { acceptReservation, getsearchreservations, getDriverById };
+module.exports = { acceptReservation, getSearchReservations, getDriverById };

@@ -124,7 +124,7 @@ const getarrangenoreservations = async (driverId) => {
 */
 
 
-const getfindreservations = async (req, res) => {
+const getFindReservations = async (req, res) => {
     try {
       let date = req.query.date;
       let location = req.query.location;
@@ -171,5 +171,5 @@ const getfindreservations = async (req, res) => {
 module.exports = {
     createReservationDriver,
     getDriverByReservationId,
-    getfindreservations
+    getFindReservations
 };

@@ -20,7 +20,7 @@ const createUser = async (name, id, hashedPassword, phonenumber) => {
   }
 };
 
-const usersignIn = async (id) => {
+const userLogin = async (id) => {
   try {
     return await database.query(
       `SELECT
@@ -54,5 +54,5 @@ const getUserById = async (id) => {
 module.exports = {
   createUser,
   getUserById,
-  usersignIn
+  userLogin
 };

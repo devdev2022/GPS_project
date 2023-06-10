@@ -21,7 +21,7 @@ const createDriver = async (name, id, hashedPassword, phonenumber, carnumber) =>
   }
 };
 
-const driversignIn = async (id) => {
+const driverLogin = async (id) => {
   try {
     return await database.query(
       `SELECT
@@ -52,7 +52,7 @@ const getDriverById = async (id) => {
   return result[0];
 };
 
-const getDriverBycarnumber = async (carnumber) => {
+const getDriverByCarNumber = async (carnumber) => {
     const result = await database.query(
       `
           SELECT 
@@ -67,6 +67,6 @@ const getDriverBycarnumber = async (carnumber) => {
 module.exports = {
   createDriver,
   getDriverById,
-  driversignIn,
-  getDriverBycarnumber
+  driverLogin,
+  getDriverByCarNumber
 };
