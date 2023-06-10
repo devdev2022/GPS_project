@@ -63,7 +63,7 @@ const driversignup = async (name, id, password, phonenumber, carnumber) => {
     const driver = await driverDao.driversignIn(id);
     const is_match = await bcrypt.compare(password, driver[0].user_pw);
     if (!is_match) {
-      throw new Error("INVALID_DRIVER", 401);
+      throw new Error("INVALID_PASSWORD", 401);
     }
     
     const driverjwtToken = jwt.sign({ id: driver[0].user_id }, process.env.JWT_SECRET_KEY, {
