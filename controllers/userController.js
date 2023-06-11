@@ -30,7 +30,6 @@ const requestReservation = async (req, res) => {
 
         res.status(200).json({ message: 'Reservation created successfully' });
     } catch (error) {
-        console.error(error);
         res.status(500).json({ message: 'An error occurred while processing the reservation' });
   }
 };
@@ -38,7 +37,6 @@ const requestReservation = async (req, res) => {
 
 
 const getReservations = catchAsync(async (req, res) => {
-    console.log(req)
     const userId = req.user.USER_ID;
 
     const user = await userService.getUserById(userId);

@@ -53,7 +53,7 @@ const calculateDistance = ({ start, end }) => {
 
 
 const calculatePrice = async ({ start, end }) => {
-  const distance = await calculateDistance({ start, end });
+  const distance = calculateDistance({ start, end });
   const price = priceCalculator.calculatePrice(distance);
 
   return  price;

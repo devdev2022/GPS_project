@@ -163,7 +163,6 @@ const getFindReservations = async (req, res) => {
       const reservations = await database.query(query, params);
       res.status(200).json(reservations);
     } catch (err) {
-      console.log(err)
       res.status(500).json({ message: 'An error occurred.' });
     }
   };
