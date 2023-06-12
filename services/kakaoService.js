@@ -30,7 +30,7 @@ const fetchAddress = async ({ start, end }) => {
       throw new Error(`No data found for location: ${(location)}`);
     }
 
-    return foundAddress;
+    return foundAddress.address_name; 
   };
 
   const startAddress = await fetchLocation(start);
@@ -38,6 +38,7 @@ const fetchAddress = async ({ start, end }) => {
 
   return { startAddress, endAddress };
 };
+
 
 const deg2rad = (deg) => deg * (Math.PI / 180);
 

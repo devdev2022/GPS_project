@@ -4,40 +4,23 @@ const { catchAsync, raiseCustomError } = require('../utils/error');
 
 const requestReservation = async (req, res) => {
     try {
-        const userId = req.user.USER_ID;
-
-        const { start, end } = req.body;
-
-        if (!start || !start.lat || !start.lng || !end || !end.lat || !end.lng) {
-            res.status(400).json({ message: 'Invalid data at lat/lng' });
-            return;
-        }    
-
-        const startlat = start.lat;
-        const startlng = start.lng;
-        const endlat = end.lat;
-        const endlng = end.lng;
-
-        const { startAddress, endAddress } = await kakaoService.fetchAddress({ start, end });
-        
-        const payment = await kakaoService.calculatePrice({ start, end });
-
-        await userService.createReservationService(
-            startAddress,
-            startlat, 
-            startlng,
-            endAddress,
-            endlat,
-            endlng,
-            userId,
-            payment
-          );
-
-        res.status(200).json({ message: 'Reservation created successfully' });
+      const userId = req.user.USER_ID;
+  
+      const { start, end } = req.body;
+  
+      if (!start || !start.lat || !start.lng || !end || !end.lat || !end.lng) {
+        res.status(400).json({ message: 'Invalid data at lat/lng' });
+        return;
+      } 
+  
+      await userService.createReservationService(start, end, userId);
+  
+      res.status(200).json({ message: 'Reservation created successfully' });
     } catch (error) {
-        res.status(500).json({ message: 'An error occurred while processing the reservation' });
-  }
-};
+      res.status(500).json({ message: 'An error occurred while processing the reservation' });
+    }
+  };
+  
 
 
 

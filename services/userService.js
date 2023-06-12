@@ -1,17 +1,28 @@
 const reservationDao = require('../models/reservationDao');
 const userDao = require("../models/userDao");
+const kakaoService = require("./kakaoService");
 const { raiseCustomError } = require('../utils/error'); 
 
-const createReservationService = async (startAddress, startlat, startlng, endAddress, endlat, endlng, userId, payment) => {
+const createReservationService = async (start, end, userId) => {
     try {
-        const { address_name: departureAddress } = startAddress;
-        const { address_name: destinationAddress } = endAddress;
-
-        await reservationDao.createReservation(departureAddress, startlat, startlng, destinationAddress, endlat, endlng, userId, payment);
+      const { startAddress, endAddress } = await kakaoService.fetchAddress({ start, end });
+      const payment = await kakaoService.calculatePrice({ start, end });
+  
+      await reservationDao.createReservation(
+        startAddress,
+        start.lat,
+        start.lng,
+        endAddress,
+        end.lat,
+        end.lng,
+        userId,
+        payment
+      );
     } catch (error) {
-        raiseCustomError(error.message, error.statusCode);
+      raiseCustomError(error.message, error.statusCode);
     }
-};
+  };
+  
 
 const getReservationByUserService = async (userId) => {
     try {
