@@ -1,4 +1,3 @@
-const kakaoService = require('../services/kakaoService');
 const userService = require('../services/userService');
 const { catchAsync, raiseCustomError } = require('../utils/error');
 
