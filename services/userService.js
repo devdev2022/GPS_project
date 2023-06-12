@@ -3,12 +3,13 @@ const userDao = require("../models/userDao");
 const kakaoService = require("./kakaoService");
 const { raiseCustomError } = require('../utils/error'); 
 
-const createReservationService = async (start, end, userId) => {
+const createReservationService = async (rsrvDateTime, start, end, userId) => {
     try {
       const { startAddress, endAddress } = await kakaoService.fetchAddress({ start, end });
       const payment = await kakaoService.calculatePrice({ start, end });
   
       await reservationDao.createReservation(
+        rsrvDateTime,
         startAddress,
         start.lat,
         start.lng,

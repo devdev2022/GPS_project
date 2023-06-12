@@ -8,7 +8,7 @@ const acceptReservation = async (req, res) => {
         await driverService.acceptReservation(reservation_id, driver_id);
         res.status(200).json({ message: 'Reservation accepted.' });
     } catch (error) {
-        res.status(500).json({ message: 'An error occurred.' });
+        res.status(500).json({ message: 'An error occurred while accepting the reservation' });
     }
 };
 
@@ -39,7 +39,7 @@ const getSearchReservations = async (req, res) => {
       const reservations = await driverService.getSearchReservations(req, res);
       res.status(200).json(reservations);
     } catch (error) {
-      res.status(500).json({ message: 'An error occurred.' });
+      res.status(500).json({ message: 'An error occurred while processing the searching the reservation' });
     }
 };
 

@@ -4,15 +4,15 @@ const { catchAsync, raiseCustomError } = require('../utils/error');
 const requestReservation = async (req, res) => {
     try {
       const userId = req.user.USER_ID;
-  
+      const rsrvDateTime = req.body.rsrvDateTime;
       const { start, end } = req.body;
   
-      if (!start || !start.lat || !start.lng || !end || !end.lat || !end.lng) {
+      if (!rsrvDateTime || !start || !start.lat || !start.lng || !end || !end.lat || !end.lng) {
         res.status(400).json({ message: 'Invalid data at lat/lng' });
         return;
       } 
   
-      await userService.createReservationService(start, end, userId);
+      await userService.createReservationService(rsrvDateTime, start, end, userId);
   
       res.status(200).json({ message: 'Reservation created successfully' });
     } catch (error) {

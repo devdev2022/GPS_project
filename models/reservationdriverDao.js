@@ -16,6 +16,7 @@ const createReservationDriver = async (reservationId, driverId) => {
         
         return result.insertId;
     } catch (err) {
+        console.log(err)
         const error = new Error("INVALID_DATA_INPUT");
         error.statusCode = 500;
         throw error;
@@ -126,46 +127,55 @@ const getarrangenoreservations = async (driverId) => {
 
 const getFindReservations = async (req, res) => {
     try {
-      let date = req.query.date;
-      let location = req.query.location;
-      let driverId = req.driver.USER_ID;
-  
-      let query = `SELECT r.* FROM reservation r 
-                   LEFT JOIN reservation_driver rd 
-                   ON r.ID = rd.RESERVATION_ID`;
-      let params = [];
-      let hasCondition = false;
-  
-      if (date) {
-        if (date.length > 10) {
-            query += (hasCondition ? ' AND' : ' WHERE') + ' r.DATE = ?';
-        } else {
-            query += (hasCondition ? ' AND' : ' WHERE') + ' DATE(r.DATE) = ?';
+        let rsrvDateTime = req.query.rsrvDateTime; 
+        let location = req.query.location;
+        let driverUserId = req.driver.USER_ID;
+
+        let driverQuery = 'SELECT id FROM driver WHERE USER_ID = ?';
+        let driverResult = await database.query(driverQuery, [driverUserId]);
+        let driverId = driverResult[0]?.id; 
+
+        let query = 
+        `SELECT r.* 
+        FROM reservation r 
+        LEFT JOIN reservation_driver rd 
+        ON r.ID = rd.RESERVATION_ID 
+        `;
+        let params = [];
+        let hasCondition = false;
+
+        if (rsrvDateTime) {
+            query += (hasCondition ? ' AND' : ' WHERE') + 
+                    ' DATE(r.RESERVATION_DATE_TIME) = ?';
+            params.push(rsrvDateTime);
+            hasCondition = true;
         }
-        params.push(date);
-        hasCondition = true;
-      }
-  
-      if (location) {
-        query += (hasCondition ? ' AND' : ' WHERE') + 
-                 ' (r.DEPARTURE_ADDRESS LIKE ? OR r.DESTINATION_ADDRESS LIKE ?)';
-        params.push(`%${location}%`, `%${location}%`);
-        hasCondition = true;
-      }
-  
-      if (driverId) {
-        query += (hasCondition ? ' AND' : ' WHERE') + 
-                 ' (rd.DRIVER_ID = ? OR rd.DRIVER_ID IS NULL)';
-        params.push(driverId);
-        hasCondition = true;
-      }
-  
-      const reservations = await database.query(query, params);
-      res.status(200).json(reservations);
+
+        if (location) {
+            query += (hasCondition ? ' AND' : ' WHERE') + 
+                    ' (r.DEPARTURE_ADDRESS LIKE ? OR r.DESTINATION_ADDRESS LIKE ?)';
+            params.push(`%${location}%`, `%${location}%`);
+            hasCondition = true;
+        }
+
+        if (driverId) {
+            query += (hasCondition ? ' AND' : ' WHERE') + 
+                    ' (rd.DRIVER_ID = ? OR rd.DRIVER_ID IS NULL)';
+            params.push(driverId);
+        } else {
+            query += (hasCondition ? ' AND' : ' WHERE') + 
+                    ' (rd.DRIVER_ID IS NOT NULL OR rd.DRIVER_ID IS NULL)';
+        }
+
+        const reservations = await database.query(query, params);
+        res.status(200).json(reservations);
     } catch (err) {
-      res.status(500).json({ message: 'An error occurred.' });
+        res.status(500).json({ message: 'INVALID_INPUT' });
     }
-  };
+};
+
+
+
 
 module.exports = {
     createReservationDriver,

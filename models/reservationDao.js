@@ -1,6 +1,7 @@
 const { database } = require("./dataSource");
 
 const createReservation = async (
+    rsrvDateTime,
     departureAddress, 
     startlat, 
     startlng, 
@@ -13,6 +14,7 @@ const createReservation = async (
     try {
       return await database.query(
         `INSERT INTO reservation (
+          RESERVATION_DATE_TIME,
           DEPARTURE_ADDRESS, 
           DEPARTURE_LAT, 
           DEPARTURE_LON, 
@@ -22,8 +24,9 @@ const createReservation = async (
           USER_ID, 
           PAYMENT
           ) 
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?);`,
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);`,
         [
+          rsrvDateTime,
           departureAddress, 
           startlat, 
           startlng, 
@@ -47,6 +50,7 @@ const getReservationByuserId = async (userId) => {
           SELECT 
               id,
               date,
+              RESERVATION_DATE_TIME,
               user_id,
               departure_address,
               departure_lat,
@@ -73,6 +77,7 @@ const getReservationByuserId = async (userId) => {
             [status, ReservationId]
         );
     } catch (err) {
+        console.log(err)
         const error = new Error("INVALID_DATA_INPUT");
         error.statusCode = 500;
         throw error;
