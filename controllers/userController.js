@@ -8,6 +8,11 @@ const requestReservation = async (req, res) => {
 
         const { start, end } = req.body;
 
+        if (!start || !start.lat || !start.lng || !end || !end.lat || !end.lng) {
+            res.status(400).json({ message: 'Invalid data at lat/lng' });
+            return;
+        }    
+
         const startlat = start.lat;
         const startlng = start.lng;
         const endlat = end.lat;

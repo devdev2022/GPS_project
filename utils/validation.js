@@ -4,7 +4,7 @@ const validateid = (id) => {
   );
 
   if (!idValidation.test(id)) {
-    const err = new Error("invalid id");
+    const err = new Error("INVALID_ID");
     err.statuseCode = 400;
     throw err;
   }
@@ -16,7 +16,7 @@ const validatepw = (password) => {
   );
 
   if (!pwValidation.test(password)) {
-    const err = new Error("invalid password");
+    const err = new Error("INVALID_PASSWORD");
     err.statuseCode = 400;
     throw err;
   }
@@ -28,7 +28,7 @@ const validatecarnumber = (carnumber) => {
   );
 
   if (!carnumberValidation.test(carnumber)) {
-    const err = new Error("invalid carnumber");
+    const err = new Error("INVALID_CARNUMBER");
     err.statuseCode = 400;
     throw err;
   }
