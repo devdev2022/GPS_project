@@ -1,7 +1,18 @@
 # GPS_project
 
 ## 소개 
-kakaoMap API를 이용한 택시 예약 API 
+- kakaoMap API를 이용한 택시 예약 API 
+- JWT를 사용한 사용자 인증
+
+- Tech Stack
+  - Node.js
+  - express
+  - MySQL
+
+- Tools
+  - VS Code
+  - Git
+
 
 ## 제작과정 
 https://sparkly-boat-991.notion.site/GPS_PROJECT-69341ac9b0ec4cb983df929d3d413d7a?pvs=4
