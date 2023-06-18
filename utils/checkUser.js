@@ -34,7 +34,7 @@ const userLoginRequired = async (req, res, next) => {
 const driverLoginRequired = async (req, res, next) => {    
   
     if (!req.headers.authorization) {
-      const error = new Error("AUTHORIZATION_REQUIRED");
+      const error = new Error("NEED_ACCESS_TOKEN");
       error.statusCode = 401;
       return res.status(error.statusCode).json({ message: error.message });
     }
@@ -47,7 +47,7 @@ const driverLoginRequired = async (req, res, next) => {
     );
   
     const driver = await getDriverById(decoded.id);
-
+    
     if (!driver) {
       const error = new Error("USER_DOES_NOT_EXIST");
       error.statusCode = 404;

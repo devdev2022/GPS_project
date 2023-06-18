@@ -68,6 +68,30 @@ const getReservationByuserId = async (userId) => {
     return result;
   };
 
+  const getUncompletedReservations = async () => {
+    const result = await database.query(
+        `
+        SELECT 
+            id,
+            date,
+            RESERVATION_DATE_TIME,
+            user_id,
+            departure_address,
+            departure_lat,
+            departure_lon,
+            destination_address,
+            destination_lat,
+            destination_lon, 
+            payment,
+            reservation_status
+        FROM reservation
+        WHERE reservation_status=?`,
+        ['미완료']
+    );
+
+    return result;
+};
+
   const updateStatus = async (status, ReservationId) => {
     try {
         return await database.query(
@@ -87,5 +111,6 @@ const getReservationByuserId = async (userId) => {
 module.exports = {
   createReservation,  
   getReservationByuserId,
+  getUncompletedReservations,
   updateStatus 
 };

@@ -60,4 +60,4 @@ const calculatePrice = async ({ start, end }) => {
   return  price;
 };
 
-module.exports = { fetchAddress, calculatePrice };
+module.exports = { fetchAddress, calculateDistance, calculatePrice };

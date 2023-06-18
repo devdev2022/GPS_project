@@ -1,6 +1,6 @@
-const { updateStatus } = require('../models/reservationDao');
+const { updateStatus, getUncompletedReservations } = require('../models/reservationDao');
 const { createReservationDriver, getFindReservations } = require('../models/reservationdriverDao')
-const { getDistance } = require('../services/kakaoService');
+const { calculateDistance } = require('../services/kakaoService');
 const driverDao = require("../models/driverDao")
 
 const acceptReservation = async (reservation_id, driver_id) => {
@@ -12,21 +12,52 @@ const acceptReservation = async (reservation_id, driver_id) => {
     }
 };
 
-/* 잠시 보류 
-const getclosereservations = async (driverLocation) => {
-    const reservations = await updateStatus.findAll();
-
-    // Calculate the distance between driver and departure location, and add it to the reservation object
+const getSortingReservations = async (driverLocation, sortBy, order) => {
+    let reservations = await getUncompletedReservations();
+    
+    const now = new Date();
+    reservations = reservations.filter(reservation => new Date(reservation.RESERVATION_DATE_TIME) >= now);
+    
     for (let i = 0; i < reservations.length; i++) {
-        reservations[i].dataValues.distance = await getDistance(driverLocation, {lat: reservations[i].DEPARTURE_LAT, lon: reservations[i].DEPARTURE_LON});
+        const reservationLocation = {
+            lat: reservations[i].departure_lat, 
+            lng: reservations[i].departure_lon
+        };
+        reservations[i].distance = calculateDistance({start: driverLocation, end: reservationLocation});
     }
 
-    // Sort the reservations by date, payment, and distance
-    reservations.sort((a, b) => a.DATE.getTime() - b.DATE.getTime() || b.PAYMENT - a.PAYMENT || a.dataValues.distance - b.dataValues.distance);
+    const sortFns = [];
+
+    if(sortBy === 'DATE') {
+        const sortFn = (a, b) => {
+            const timeA = new Date(a.RESERVATION_DATE_TIME).getTime();
+            const timeB = new Date(b.RESERVATION_DATE_TIME).getTime();
+            return order === 'asc' ? timeA - timeB : timeB - timeA;
+        };
+        sortFns.push(sortFn);
+    }
+
+    else if(sortBy === 'FARE') {
+        const sortFn = (a, b) => order === 'asc' ? a.payment - b.payment : b.payment - a.payment;
+        sortFns.push(sortFn);
+    }
+        
+    else if(sortBy === 'DISTANCE') {
+        const sortFn = (a, b) => order === 'asc' ? a.distance - b.distance : b.distance - a.distance;
+        sortFns.push(sortFn);
+    }
+
+    reservations.sort((a, b) => {
+        for(let i = 0; i < sortFns.length; i++) {
+            const result = sortFns[i](a, b);
+            if(result !== 0) return result;
+        }
+        return 0;
+    });
 
     return reservations;
 };
-*/
+
 
 const getSearchReservations = async (req, res) => {
     try {
@@ -42,4 +73,4 @@ const getDriverById = async (id) => {
     return driver
   }
 
-module.exports = { acceptReservation, getSearchReservations, getDriverById };
+module.exports = { acceptReservation, getSortingReservations, getSearchReservations, getDriverById };
