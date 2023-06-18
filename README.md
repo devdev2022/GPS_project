@@ -14,8 +14,6 @@
 #### 운전자 회원가입
 ![운전자 회원가입](https://github.com/devdev2022/GPS_project/assets/100466989/c33dc32b-da71-426d-a928-5da52cb5af0f)
 
-<br>
-
 #### 운전자 회원가입시 차번호 중복인 경우 
 <img width="775" alt="차 번호 중복시" src="https://github.com/devdev2022/GPS_project/assets/100466989/e32660d2-f3d3-4a6c-81a0-b47a69acd33c">
 
@@ -38,7 +36,6 @@
 
 ### 2. 유저의 예약조회
 ![유저 예약조회](https://github.com/devdev2022/GPS_project/assets/100466989/92e3aaec-eef4-4097-adc8-9e6e0523a765)
-6989/570107f7-27d8-4cb5-b5aa-3a3c50fdfa0a)
 
 <br>
 
@@ -86,7 +83,7 @@
 <br>
 
 #### 운전자 정렬 - 요금 오름차순
-![운전자 정렬 - 요금 오름차순](https://github.com/devdev2022/GPS_project/assets/10046
+![운전자 정렬 - 요금 오름차순](https://github.com/devdev2022/GPS_project/assets/100466989/570107f7-27d8-4cb5-b5aa-3a3c50fdfa0a)
 
 <br>
 
