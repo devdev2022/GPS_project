@@ -115,6 +115,7 @@ https://documenter.getpostman.com/view/24104497/2s93saatPR
 #### 기간이 지난 예약 제외 
 <img width="667" alt="지난 예약 제외" src="https://github.com/devdev2022/GPS_project/assets/100466989/0653327e-438f-4166-b303-6a36e960069c">
 
+현재시간 2023-06-18 11:00 기준, 그 이전 예약상태가 '미완료'인 예약의 경우 제외
 
 ## 제작과정 
 https://sparkly-boat-991.notion.site/GPS_PROJECT-69341ac9b0ec4cb983df929d3d413d7a?pvs=4
