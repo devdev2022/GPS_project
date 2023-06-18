@@ -4,18 +4,14 @@
 - kakaoMap API를 이용한 택시 예약 API 
 - JWT를 사용한 사용자 인증
 
-- Tech Stack
-  - Node.js
-  - express
-  - MySQL
+## Tech Stack
+- Node.js
+- express
+- MySQL
 
-- Tools
-  - VS Code
-  - Git
-
-
-## 제작과정 
-https://sparkly-boat-991.notion.site/GPS_PROJECT-69341ac9b0ec4cb983df929d3d413d7a?pvs=4
+## Tools 
+- VS Code
+- Git
 
 ## ERD
 
@@ -119,3 +115,6 @@ https://documenter.getpostman.com/view/24104497/2s93saatPR
 #### 기간이 지난 예약 제외 
 <img width="667" alt="지난 예약 제외" src="https://github.com/devdev2022/GPS_project/assets/100466989/0653327e-438f-4166-b303-6a36e960069c">
 
+
+## 제작과정 
+https://sparkly-boat-991.notion.site/GPS_PROJECT-69341ac9b0ec4cb983df929d3d413d7a?pvs=4
