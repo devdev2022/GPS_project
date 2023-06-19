@@ -40,7 +40,7 @@ https://documenter.getpostman.com/view/24104497/2s93saatPR
 ### 1. 운전자와 유저의 회원가입과 로그인
 
 #### 운전자 회원가입
-https://github.com/devdev2022/39-1st-PickEat-backend/assets/100466989/5b878a25-229c-4bb4-a6e0-5b0c2e5e7e36.mp4
+https://github.com/devdev2022/39-1st-PickEat-backend/assets/100466989/c1c9705c-cdfd-49fa-9590-b0e778859629.mp4
 
 #### 운전자 회원가입시 차번호 중복인 경우 
 <img width="775" alt="차 번호 중복시" src="https://github.com/devdev2022/GPS_project/assets/100466989/e32660d2-f3d3-4a6c-81a0-b47a69acd33c">
