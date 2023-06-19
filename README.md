@@ -84,7 +84,7 @@ https://documenter.getpostman.com/view/24104497/2s93saatPR
 ### 6. 운전자의 예약정렬
 
 #### 동적 필터링
-![동적_필터링__AdobeExpress](https://github.com/devdev2022/GPS_project/assets/100466989/53be2bd1-856b-42cb-9f72-0250ef16517d)
+https://github.com/devdev2022/GPS_project/assets/100466989/84a53f9b-536a-4246-8c8a-29b1c484a571.mp4
 
 <br>
 
