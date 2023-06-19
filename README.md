@@ -73,12 +73,12 @@ https://github.com/devdev2022/39-1st-PickEat-backend/assets/100466989/d3baef73-3
 <br>
 
 ### 4. 운전자의 예약수락
-https://github.com/devdev2022/39-1st-PickEat-backend/assets/100466989/5b878a25-229c-4bb4-a6e0-5b0c2e5e7e36.mp4
+https://github.com/devdev2022/39-1st-PickEat-backend/assets/100466989/abb8abd4-0e48-4bae-9c8e-8e8d01e9c9d0.mp4
 
 <br>
 
 ### 5. 운전자의 예약검색
-https://github.com/devdev2022/39-1st-PickEat-backend/assets/100466989/abb8abd4-0e48-4bae-9c8e-8e8d01e9c9d0.mp4
+https://github.com/devdev2022/39-1st-PickEat-backend/assets/100466989/5b878a25-229c-4bb4-a6e0-5b0c2e5e7e36.mp4
 
 <br>
 
