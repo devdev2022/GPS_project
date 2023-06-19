@@ -54,6 +54,7 @@ https://github.com/devdev2022/39-1st-PickEat-backend/assets/100466989/249bc003-c
 
 #### 운전자 로그인
 https://github.com/devdev2022/39-1st-PickEat-backend/assets/100466989/df90369e-dcb9-4095-a296-a79004d6fb61.mp4
+
 <br>
 
 #### 유저 로그인
