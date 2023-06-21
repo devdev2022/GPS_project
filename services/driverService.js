@@ -17,6 +17,9 @@ const getSortingReservations = async (driverLocation, sortBy, order) => {
     
     const now = new Date();
     reservations = reservations.filter(reservation => new Date(reservation.RESERVATION_DATE_TIME) >= now);
+    if(reservations.length===0) {
+        return "There are no reservations for the current time"
+    }
     
     for (let i = 0; i < reservations.length; i++) {
         const reservationLocation = {
