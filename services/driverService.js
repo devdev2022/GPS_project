@@ -14,13 +14,14 @@ const acceptReservation = async (reservation_id, driver_id) => {
 
 const getSortingReservations = async (driverLocation, sortBy, order) => {
     let reservations = await getUncompletedReservations();
-    
+
     const now = new Date();
     reservations = reservations.filter(reservation => new Date(reservation.RESERVATION_DATE_TIME) >= now);
-    if(reservations.length===0) {
-        return "There are no reservations for the current time"
-    }
     
+    if(reservations.length===0) {
+        return "There are no reservations for the current time frame"
+    }
+
     for (let i = 0; i < reservations.length; i++) {
         const reservationLocation = {
             lat: reservations[i].departure_lat, 
@@ -31,23 +32,23 @@ const getSortingReservations = async (driverLocation, sortBy, order) => {
 
     const sortFns = [];
 
-    if(sortBy === 'DATE') {
+    if(sortBy.date) {
         const sortFn = (a, b) => {
             const timeA = new Date(a.RESERVATION_DATE_TIME).getTime();
             const timeB = new Date(b.RESERVATION_DATE_TIME).getTime();
-            return order === 'asc' ? timeA - timeB : timeB - timeA;
+            return sortBy.date === 'asc' ? timeA - timeB : timeB - timeA;
         };
         sortFns.push(sortFn);
+        }
+
+    if(sortBy.fare) {
+    const sortFn = (a, b) => sortBy.fare === 'asc' ? a.payment - b.payment : b.payment - a.payment;
+    sortFns.push(sortFn);
     }
 
-    else if(sortBy === 'FARE') {
-        const sortFn = (a, b) => order === 'asc' ? a.payment - b.payment : b.payment - a.payment;
-        sortFns.push(sortFn);
-    }
-        
-    else if(sortBy === 'DISTANCE') {
-        const sortFn = (a, b) => order === 'asc' ? a.distance - b.distance : b.distance - a.distance;
-        sortFns.push(sortFn);
+    if(sortBy.distance) {
+    const sortFn = (a, b) => sortBy.distance === 'asc' ? a.distance - b.distance : b.distance - a.distance;
+    sortFns.push(sortFn);
     }
 
     reservations.sort((a, b) => {
@@ -57,7 +58,6 @@ const getSortingReservations = async (driverLocation, sortBy, order) => {
         }
         return 0;
     });
-
     return reservations;
 };
 
