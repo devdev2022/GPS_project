@@ -85,7 +85,7 @@ https://github.com/devdev2022/39-1st-PickEat-backend/assets/100466989/5b878a25-2
 ### 6. 운전자의 예약정렬
 
 #### 동적 필터링
-https://github.com/devdev2022/39-1st-PickEat-backend/assets/100466989/885a4d04-8cdd-43bd-a0e6-6a8f2aa47e76.mp4
+https://github.com/devdev2022/GPS_project/assets/100466989/b67756fe-ae5c-4705-86d9-5a71a225d747.mp4
 
 <br>
 
